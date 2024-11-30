@@ -1,0 +1,45 @@
+<tr id="tarefa-{{tarefa.id}}" class="{% if tarefa.custo|int >= 1000 %}table-warning{% endif %}" id="highlight">
+    <th scope="row">{{tarefa.id}}</th>
+    <td>{{tarefa.nome}} </td>
+    <td>R$ {{tarefa.custo}} </td>
+    <td>{{tarefa.dtLimite.strftime('%d/%m/%Y') if tarefa.dtLimite else 'Sem data'}} </td>
+
+    <td>
+        <button class="btn btn-primary" c-get="{{ url_for('tarefas.form_edit_tarefa', tarefa_id = tarefa.id)}}"
+            c-target="#form-tarefa">
+            Editar
+        </button>
+
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+            onclick="setTaskIdToDelete({{ tarefa.id}})" c-remove-closest="tr">
+            Excluir
+        </button>
+
+    </td>
+
+    <td>
+
+        <div>
+            <form action="{{ url_for('tarefas.subirTarefa', tarefa_id=tarefa.id) }}" method="PUT" id="form-reordenar-{{ tarefa.id }}" style="display: inline-block;">
+                <!-- Botão de subir -->
+                <button type="submit" class="btn btn-warning" {% if tarefa.ordem|int  <= 1 %}disabled{% endif %}>
+                    Subir
+                </button>
+    
+                
+            </form>
+    
+            <form action="{{ url_for('tarefas.descerTarefa', tarefa_id=tarefa.id) }}" method="PUT" id="form-descerTarefa-{{ tarefa.id }}" style="display: inline-block;">
+                <!-- Botão de descer -->
+                <button type="submit" class="btn btn-warning" {% if tarefa.ordem == maior_ordem %} disabled {% endif %}>
+                    Descer
+                </button>
+            </form>
+            
+        </div>
+        
+        
+        
+    </td>
+
+</tr>

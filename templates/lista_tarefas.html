@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+      <tr>
+
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Custo</th>
+        <th scope="col">Data Limite</th>
+        <th scope="col">Ações</th>
+
+        <th scope="col">Reordenar</th>
+      </tr>
+    </thead>
+    <tbody id="lista-tarefas">
+
+      {% for tarefa in tarefas %}
+        {% include 'item_tarefa.html' %}      
+      {%endfor%}
+
+    </tbody>
+  </table>

@@ -1,0 +1,52 @@
+<form class="c-form" 
+    {% if tarefa %}
+        action="{{url_for('tarefas.atualizar_tarefa', tarefa_id=tarefa.id)}}"
+    {% else %}
+        action="{{url_for('tarefas.inserir_tarefa')}}"
+    {% endif %}
+    method="{% if tarefa %}PUT{% else %}POST{% endif %}"
+    {% if tarefa %}
+        c-swap="#tarefa-{{tarefa.id}}"
+    {% else %}
+        c-append="#lista-tarefas"
+    {% endif %}
+    c-reload-container="true">
+
+    <h2>
+        {% if tarefa %}
+            Editando a tarefa número {{tarefa.id}}
+        {% else %}
+            Adicionar nova tarefa    
+        {% endif %}
+    </h2>
+
+    <div class="mb-3">
+        <label class="form-label">Nome da Tarefa</label>
+        <input type="text" class="form-control" name="nome" 
+        {% if tarefa %}value="{{tarefa.nome}}"{% endif %}>
+    </div>
+
+    <!-- Elemento para exibir mensagens de erro -->
+    <div id="form-error" class="text-danger mt-2" style="display: none;"></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Custo</label>
+            <input type="number" class="form-control" name="custo" 
+            {% if tarefa %}value="{{tarefa.custo}}"{% endif %}>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Data Limite</label>
+            <input type="date" class="form-control" name="dtLimite" 
+            {% if tarefa %}value="{{tarefa.dtLimite}}"{% endif %}>
+        </div>
+    </div>
+
+    <br>
+    <p>
+        <button type="submit" class="btn btn-primary">
+            {% if tarefa %}Salvar Tarefa{% else %}Incluir Tarefa{% endif %}
+        </button>
+    </p>
+</form>
